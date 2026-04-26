@@ -1,16 +1,13 @@
 "use client"
-
 import { useEffect } from "react"
-import { supabase } from "../lib/supabaseClient"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const router = useRouter()
 
+  useEffect(() => {
+    router.replace("/login")
+  }, [])
 
-  return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold">
-        eLab Dashboard
-      </h1>
-    </div>
-  )
+  return null
 }
