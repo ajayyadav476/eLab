@@ -1,0 +1,381 @@
+/* ===== GLOBAL ===== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  color: #8d07fb;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #262222;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.blue { background: #2563eb }
+.green { background: #16a34a }
+.purple { background: #7c3aed }
+
+
+/* ===== TABLE ===== */
+
+.simpleTableWrapper {
+  overflow-x: auto;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.simpleTable {
+  border-collapse: collapse;
+  min-width: 100%;
+  width: max-content;
+}
+
+/* COMMON CELL */
+.simpleTable th,
+.simpleTable td {
+  min-width: 140px;
+  white-space: nowrap;
+}
+
+/* HEADER */
+.simpleTable th {
+  background: linear-gradient(to right, #9333ea, #d946ef);
+  color: white;
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+
+  /* 🔥 Sticky header */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* BODY */
+.simpleTable td {
+  border: 2px solid black;
+  padding: 6px;
+  text-align: center;
+  color: black;
+  vertical-align: middle;
+}
+
+/* ===== INPUT (CREATE PAGE) ===== */
+
+.cellInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: black;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.cellInput::placeholder {
+  color: #6b7280;
+}
+
+.cellInput.error {
+  color: red;
+}
+
+
+/* ===== FIXED WIDTH COLUMNS ===== */
+
+.sno {
+  width: 60px;
+  min-width: 60px;
+  -webkit-text-fill-color: white;
+}
+
+.roll {
+  width: 120px;
+  min-width: 120px;
+  -webkit-text-fill-color: white;
+}
+
+.name {
+  width: 260px;
+  min-width: 260px;
+  -webkit-text-fill-color: white;
+}
+
+
+/* ===== TEXTAREA (MULTILINE SUPPORT) ===== */
+
+.textarea {
+  width: 100%;
+  border: 1px solid #5e5959;
+  resize: none;
+  overflow-x: auto;
+  white-space: pre;
+  padding: 4px;
+}
+
+
+/* ===== MODAL ===== */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;   /* 🔥 ADD THIS */
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  width: 350px;
+  border-radius: 10px;
+}
+
+.modal input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid #000;
+  color: black;
+}
+
+
+/* ===== TYPE TOGGLE ===== */
+
+.typeToggle {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.typeToggle span {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.typeToggle .active {
+  background: #7c3aed;
+  color: white;
+}
+
+
+/* ===== SUB INPUT ===== */
+
+.subInput {
+  display: flex;
+  gap: 5px;
+}
+
+
+/* ===== POPUP (RIGHT CLICK MENU) ===== */
+
+.popup {
+  position: fixed;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.popup button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* EDIT BUTTON */
+.popupEdit {
+  background: #1b35ff;
+  color: white;
+}
+
+.popupEdit:hover {
+  background: #517fff;
+}
+
+/* DELETE BUTTON */
+.popup .danger {
+  background: #dc2626;
+  color: white;
+}
+
+.popup .danger:hover {
+  background: #ff8080;
+}
+
+
+/* ===== COMPUTE MODAL ===== */
+
+.computeModal {
+  background: white;
+  width: 420px;
+  max-height: 80vh;          /* ✅ LIMIT HEIGHT */
+  overflow-y: auto;          /* ✅ ENABLE SCROLL */
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  color:#000
+}
+
+.computeTitle {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #5b21b6;
+  margin-bottom: 20px;
+}
+
+.computeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 18px;
+  color: #4c1d95;
+}
+
+
+/* ===== SWITCH ===== */
+
+.switch {
+  width: 46px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.switch.on {
+  background: #7c3aed;
+}
+
+.knob {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  transition: 0.3s;
+}
+
+.switch.on .knob {
+  left: 23px;
+}
+
+
+/* ===== SELECT CARD ===== */
+
+.selectCard {
+  background: #ede9fe;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 10px;
+  color:#000
+}
+
+.selectCard h3 {
+  text-align: center;
+  color: #6d28d9;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+/* ===== CHECK ITEMS ===== */
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.checkItem input {
+  width: 16px;
+  height: 16px;
+}
+
+.checkItem span {
+  color: #000;   /* 🔥 FORCE TEXT VISIBLE */
+  font-weight: 500;
+  user-select: none;
+}
+
+
+/* ===== MODAL ACTIONS ===== */
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modalActions button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.modalActions button:first-child {
+  background: #e5e7eb;
+}
+
+.modalActions button:last-child {
+  background: #7c3aed;
+  color: white;
+}
+
+
+/* ===== COMPUTED COLUMN HEADER ===== */
+
+.computeHeader {
+  background: linear-gradient(to right, #059669, #10b981);
+  color: white;
+  border: 2px solid black;
+}
