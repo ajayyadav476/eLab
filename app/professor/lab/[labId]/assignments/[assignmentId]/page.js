@@ -59,15 +59,13 @@ export default function AssignmentSubmissions() {
       )}
 
       <div className="space-y-4">
-
-        {submissions.map((sub) => (
-
+          {submissions.map((sub) => (
           <SubmissionCard
             key={sub.id}
             submission={sub}
             gradeSubmission={gradeSubmission}
           />
-
+          
         ))}
 
       </div>
@@ -96,14 +94,22 @@ function SubmissionCard({ submission, gradeSubmission }) {
           {new Date(submission.submitted_at).toLocaleString()}
         </p>
 
-        <a
-          href={submission.file_url}
-          target="_blank"
-          className="text-blue-600 underline"
-        >
-          View Submission
-        </a>
+        {(() => {
+  const { data } = supabase
+    .storage
+    .from("assignments")
+    .getPublicUrl(submission.file_url)
 
+  return (
+    <a
+      href={data.publicUrl}
+      target="_blank"
+      className="text-blue-600 underline"
+    >
+      View Submission
+    </a>
+  )
+})()}
       </div>
 
       <div className="flex items-center gap-3">
