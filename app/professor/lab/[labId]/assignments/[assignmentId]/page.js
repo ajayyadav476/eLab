@@ -77,71 +77,67 @@ export default function AssignmentSubmissions() {
 }
 
 function SubmissionCard({ submission, gradeSubmission }) {
+  const [marks, setMarks] = useState(submission.marks ?? "")
+  const [savedMarks, setSavedMarks] = useState(submission.marks ?? null)
 
-  const [marks, setMarks] = useState(submission.marks || "")
+  const isChanged = Number(marks) !== Number(savedMarks)
 
-  return (
+  async function handleGrade() {
+    await gradeSubmission(submission.id, marks)
+    setSavedMarks(Number(marks)) // mark as saved
+  }
 
-    <div className="border p-4 rounded-lg bg-white shadow flex justify-between items-center">
-
-      <div>
-
-        <p className="font-semibold text-black">
-          {submission.student?.name}
-        </p>
-
-        <p className="text-gray-600 text-sm">
-          {new Date(submission.submitted_at).toLocaleString()}
-        </p>
-
-        {(() => {
+  // 🔗 Generate public URL
   const { data } = supabase
     .storage
     .from("assignments")
     .getPublicUrl(submission.file_url)
 
   return (
-    <a
-      href={data.publicUrl}
-      target="_blank"
-      className="text-blue-600 underline"
-    >
-      View Submission
-    </a>
-  )
-})()}
+    <div className="border p-4 rounded-lg bg-white shadow flex justify-between items-center">
+      <div>
+        <p className="font-semibold text-black">
+          {submission.student?.name}
+        </p>
+        <p className="text-gray-600 text-sm">
+          {new Date(submission.submitted_at).toLocaleString()}
+        </p>
+
+        <a
+          href={data.publicUrl}
+          target="_blank"
+          className="text-blue-600 underline"
+        >
+          View Submission
+        </a>
       </div>
 
       <div className="flex items-center gap-3">
-
         <input
           type="number"
           value={marks}
-          onChange={(e)=>setMarks(e.target.value)}
+          onChange={(e) => setMarks(e.target.value)}
           className="border px-2 py-1 w-20 text-black"
         />
 
-        {submission.marks !== null && (
-
+        {/* 🟢 SHOW GRADE BUTTON IF CHANGED OR NOT GRADED */}
+        {(savedMarks === null || isChanged) && (
           <button
-            onClick={()=>gradeSubmission(submission.id, marks)}
-            className="bg-green-600 text-white px-3 py-1 rounded  transition transform hover:scale-101 active:scale-95 cursor-pointer"
+            onClick={handleGrade}
+            className="bg-green-600 text-white px-3 py-1 rounded transition transform hover:scale-101 active:scale-95 cursor-pointer"
           >
             Grade
           </button>
-
         )}
 
-        {submission.marks === null && (
-          <span className="text-green-700 font-semibold">
+        {/* ⚪ SHOW GRADED WHEN SAVED AND NOT CHANGED */}
+        {savedMarks !== null && !isChanged && (
+          <span className="text-gray-500 font-semibold">
             Graded
           </span>
         )}
-
       </div>
-
     </div>
-
   )
-
 }
+

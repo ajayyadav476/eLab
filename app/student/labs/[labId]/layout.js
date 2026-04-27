@@ -54,7 +54,7 @@ export default function LabLayout({ children }) {
           </h1>
 
           <p className="text-black/80 mt-1">
-            Instructor: {lab?.professor?.name || "..."}
+            Professor: Dr. {lab?.professor?.name || "..."}
           </p>
         </div>
 
