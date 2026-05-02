@@ -29,7 +29,7 @@ const { data: labsData, error } = await supabase
       course_name,
       course_code,
       batch,
-      users (
+      users:users!labs_professor_id_fkey (
         name
       )
     )
@@ -184,7 +184,7 @@ setLabs(labsData || [])
                     </p>
 
                     <p className="text-gray-700 text-sm mt-3">
-                      Prof: {lab.labs.professor?.name}
+                      Professor: {lab.labs.users?.name}
                     </p>
 
                   </div>
