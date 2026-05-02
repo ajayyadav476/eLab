@@ -16,55 +16,30 @@ export default function Dashboard() {
     loadLabs()
   }, [])
 
-  async function loadLabs() {
-    const { data: authData } = await supabase.auth.getUser()
-const user = authData.user
+async function loadLabs() {
+  const { data: authData } = await supabase.auth.getUser()
+  const user = authData.user
 
-const { data: labsData, error } = await supabase
-  .from("lab_members")
-  .select(`
-    lab_id,
-    labs (
-      id,
-      course_name,
-      course_code,
-      batch,
-      professor_id
-    )
-  `)
-  .eq("user_id", user.id)
+  const { data: labsData, error } = await supabase
+    .from("lab_members")
+    .select(`
+      lab_id,
+      labs (
+        id,
+        course_name,
+        course_code,
+        batch,
+        users!labs_professor_fkey (
+          name
+        )
+      )
+    `)
+    .eq("user_id", user.id)
 
-  // fetch professor names separately
-const labIds = labsData?.map(l => l.labs.professor_id)
+  console.log(labsData, error)
 
-let professors = {}
-
-if (labIds && labIds.length > 0) {
-  const { data: usersData } = await supabase
-    .from("users")
-    .select("id, name")
-    .in("id", labIds)
-
-  usersData?.forEach(u => {
-    professors[u.id] = u.name
-  })
+  setLabs(labsData || [])
 }
-
-// attach professor name to labs
-const finalData = labsData.map(l => ({
-  ...l,
-  labs: {
-    ...l.labs,
-    professor_name: professors[l.labs.professor_id]
-  }
-}))
-
-setLabs(finalData || [])
-
-console.log(labsData, error)
-
-setLabs(labsData || [])
-  }
 
   async function joinLab() {
     const { data: { user } } = await supabase.auth.getUser()
@@ -209,7 +184,7 @@ setLabs(labsData || [])
                     </p>
 
                     <p className="text-gray-700 text-sm mt-3">
-                      Professor: {lab.labs.professor_name || "—"}
+                      Professor: {lab.labs.users?.name || "—"}
                     </p>
 
                   </div>
