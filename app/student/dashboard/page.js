@@ -29,12 +29,37 @@ const { data: labsData, error } = await supabase
       course_name,
       course_code,
       batch,
-      users:users!labs_professor_id_fkey (
-        name
-      )
+      professor_id
     )
   `)
   .eq("user_id", user.id)
+
+  // fetch professor names separately
+const labIds = labsData?.map(l => l.labs.professor_id)
+
+let professors = {}
+
+if (labIds && labIds.length > 0) {
+  const { data: usersData } = await supabase
+    .from("users")
+    .select("id, name")
+    .in("id", labIds)
+
+  usersData?.forEach(u => {
+    professors[u.id] = u.name
+  })
+}
+
+// attach professor name to labs
+const finalData = labsData.map(l => ({
+  ...l,
+  labs: {
+    ...l.labs,
+    professor_name: professors[l.labs.professor_id]
+  }
+}))
+
+setLabs(finalData || [])
 
 console.log(labsData, error)
 
@@ -184,7 +209,7 @@ setLabs(labsData || [])
                     </p>
 
                     <p className="text-gray-700 text-sm mt-3">
-                      Professor: {lab.labs.users?.name}
+                      Professor: {lab.labs.professor_name || "—"}
                     </p>
 
                   </div>
